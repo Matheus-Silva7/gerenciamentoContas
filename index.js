@@ -1,11 +1,13 @@
 const express = require("express");
 const app = express();
+const cors = require("cors")
 const port = 8080;
 const database = require("./dbConnect");
 const UserSchema = require("./models/userModel"); 
 const ContaSchema = require("./models/contasModel"); 
 
 app.use(express.json());
+app.use(cors());
 
 (async () => {
   try {
@@ -13,7 +15,7 @@ app.use(express.json());
     console.log('Conexão com o banco de dados estabelecida com sucesso.');
 
   
-    await database.sync({ force: true }); 
+    await database.sync(); 
     console.log('Banco de dados sincronizado e tabelas criadas.');
 
     const userRoutes = require("./routes/userRoutes");
@@ -30,3 +32,4 @@ app.use(express.json());
     console.error('Erro ao sincronizar o banco de dados:', err);
   }
 })();
+ 

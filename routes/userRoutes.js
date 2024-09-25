@@ -10,3 +10,4 @@ router.post("/signin", userController.signinUser);
 router.get("/profile", userIsAuth, userController.getProfile);
 
 module.exports = router;
+ 

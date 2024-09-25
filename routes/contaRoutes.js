@@ -7,7 +7,7 @@ const userIsAuth = require("../middleware/userIsAuth");
 router.post("/", userIsAuth, ContaController.createConta);
 
 // Rota para listar todas as contas do usuário
-router.get("/", userIsAuth, ContaController.getContas);
+router.get("/todasContas", userIsAuth, ContaController.getContas);
 
 // Rota para obter uma conta específica
 router.get("/:id", userIsAuth, ContaController.getContaById);
