@@ -1,54 +1,52 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 const FormSignup = () => {
-  // Estados para armazenar os valores do formulário
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
-  // Função para enviar o formulário
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Impede o comportamento padrão do form (recarregar a página)
-
+  const handleCadastro = async (e) => {
+    e.preventDefault();
+    console.log(name, email, senha);
+    
     try {
-      // Faz o POST para a API
-      const response = await axios.post('http://localhost:8080/user/signup', {
-        nome: nome,      // Os dados são enviados como um objeto
-        email: email,
-        senha: senha
-      });
-
-      console.log('Cadastro realizado com sucesso:', response.data);
-      // Você pode adicionar lógica para redirecionar ou exibir uma mensagem de sucesso aqui
-
+      const response = await axios.post(
+        "http://192.168.0.102:3000/user/signup", // URL
+        { name, email, senha }, // Dados
+        { headers: { 'Content-Type': 'application/json' } } // Cabeçalhos
+      );
+      
+      console.log("Resposta do servidor:", response.data); // Para depuração
     } catch (error) {
-      console.error('Erro ao realizar o cadastro:', error);
-      // Você pode adicionar lógica para exibir uma mensagem de erro aqui
+      console.error("Erro ao cadastrar:", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleCadastro}> {/* Use onSubmit no form */}
       <input
         type="text"
+        name="name"
+        onChange={(e) => setName(e.target.value)}
         placeholder="nome"
-        value={nome}
-        onChange={(e) => setNome(e.target.value)} // Atualiza o estado nome
+        required
       />
       <input
         type="email"
+        name="email"
+        onChange={(e) => setEmail(e.target.value)}
         placeholder="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)} // Atualiza o estado email
+        required
       />
       <input
         type="password"
+        name="senha"
+        onChange={(e) => setSenha(e.target.value)}
         placeholder="senha"
-        value={senha}
-        onChange={(e) => setSenha(e.target.value)} // Atualiza o estado senha
+        required
       />
-      <input type="submit" value="Cadastrar" />
+      <button type="submit">Cadastrar</button> {/* Mudança de texto */}
     </form>
   );
 };
