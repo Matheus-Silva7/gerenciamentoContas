@@ -1,0 +1,10 @@
+.contas-card{
+  display: flex;
+  width: auto;
+  gap: 2rem;
+  margin: 2rem;
+  padding: 1rem;
+  width: 900px;
+  border-radius: 10px;
+  background-color: #3b3b3b;
+}

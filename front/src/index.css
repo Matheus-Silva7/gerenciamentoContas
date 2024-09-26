@@ -1,0 +1,16 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #202020;
+  font-family: sans-serif;
+  color: #fff;
+}
+
+a{
+  color: #fff;
+}
+

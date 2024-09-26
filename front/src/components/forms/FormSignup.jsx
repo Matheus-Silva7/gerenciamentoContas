@@ -1,37 +1,32 @@
+// src/components/FormSignup.jsx
 import React, { useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";
+import { signup } from '../../services/ApiRegister'; 
+import "./Form.css";
 
 const FormSignup = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleCadastro = async (e) => {
     e.preventDefault();
-    console.log(nome, email, senha);
 
     try {
-      const response = await axios.post(
-        "http://192.168.100.126:3000/user/signup", // URL com ip
-        { nome, email, senha }, // Dados
-        { headers: { 'Content-Type': 'application/json' } } // Cabeçalhos
-      );
+      const response = await signup(nome, email, senha); 
 
-      console.log("Resposta do servidor:", response.data); 
 
-      // Verifica se o cadastro foi bem-sucedido (status 201) e passa para a tela de login
       if (response.status === 201) {
-        navigate("/login"); 
+        navigate("/login");
       }
     } catch (error) {
-      // Verifica se o erro tem uma resposta do servidor
+    
       if (error.response) {
         if (error.response.status === 409) {
-          setErrorMessage("Usuário já cadastrado"); // Definindo a mensagem de erro
+          setErrorMessage("Usuário já cadastrado"); 
         } else {
           setErrorMessage("Erro ao cadastrar. Tente novamente.");
         }
@@ -43,34 +38,46 @@ const FormSignup = () => {
   };
 
   return (
-    <form onSubmit={handleCadastro}> 
-      <input
-        type="text"
-        name="nome"
-        onChange={(e) => setNome(e.target.value)}
-        placeholder="nome"
-        required
-      />
-      <input
-        type="email"
-        name="email"
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="email"
-        required
-      />
-      <input
-        type="password"
-        name="senha"
-        onChange={(e) => setSenha(e.target.value)}
-        placeholder="senha"
-        required
-      />
-      <button type="submit">Cadastrar</button> 
-      <p>Já possui login?</p><Link to={"/login"}>Entrar</Link>
+    <div className="form-content">
+      <form className="form-register" onSubmit={handleCadastro}>
+        <h2>Cadastro</h2>
+        <div className="input-content">
+          <label>Nome:</label>
+          <input
+            type="text"
+            name="nome"
+            onChange={(e) => setNome(e.target.value)}
+            placeholder="nome"
+            required
+          />
+        </div>
+        <div className="input-content">
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="email"
+            required
+          />
+        </div>
+        <div className="input-content">
+          <label>Senha:</label>
+          <input
+            type="password"
+            name="senha"
+            onChange={(e) => setSenha(e.target.value)}
+            placeholder="senha"
+            required
+          />
+        </div>
+        <p className="text">Já possui conta? <Link to={"/login"}>Entrar</Link></p>
+        <button type="submit">Cadastrar</button>
 
-      {/* Exibe a mensagem de erro caso haja */}
-      {errorMessage && <p>{errorMessage}</p>}
-    </form>
+      
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      </form>
+    </div>
   );
 };
 

@@ -1,0 +1,44 @@
+.form-content {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-register  {
+  background-color: #1b1b1b;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 3rem;
+  width: 500px;
+}
+
+.form-register h2{
+
+}
+
+.input-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-content input {
+  height: 35px;
+  padding: 10px;
+  outline: none;
+}
+
+.form-register button {
+  width: 70px;
+  height: 25px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+
+.form-register .text a{
+  text-decoration: underline;
+}

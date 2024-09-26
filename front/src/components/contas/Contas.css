@@ -1,0 +1,26 @@
+.content-contas{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+}
+
+.form-contas{
+  display: flex;
+  gap: 2rem;
+  background-color: #1b1b1b;
+  padding: 2rem;
+  margin: 1rem;
+}
+
+.form-contas input{
+  outline: none;
+  width: 250px;
+height: 25px;
+padding: 5px;
+}
+
+.form-contas button{
+  cursor: pointer;
+}

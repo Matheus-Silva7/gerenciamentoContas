@@ -2,13 +2,14 @@ const ContaModel = require("../models/contasModel"); // Renomeado para evitar co
 
 // Criar nova conta
 exports.createConta = async (req, res) => {
-  const { nome, valor, dataVencimento } = req.body;
+  const { nome, valor, dataVencimento,status } = req.body;
 
   try {
     const newConta = await ContaModel.create({
       nome,
       valor,
       dataVencimento,
+      status,
       usuarioId: req.userId, // Relaciona a conta ao usuário autenticado
     });
 
@@ -56,7 +57,7 @@ exports.getContaById = async (req, res) => {
 // Atualizar uma conta
 exports.updateConta = async (req, res) => {
   const { id } = req.params;
-  const { nome, valor, dataVencimento } = req.body;
+  const { nome, valor, dataVencimento, status } = req.body;
 
   try {
     const conta = await ContaModel.findOne({
@@ -70,6 +71,7 @@ exports.updateConta = async (req, res) => {
     conta.nome = nome;
     conta.valor = valor;
     conta.dataVencimento = dataVencimento;
+    conta.status = status
 
     await conta.save();
 

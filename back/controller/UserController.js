@@ -73,7 +73,6 @@ exports.getProfile = async (req, res) => {
   try {
     const userId = req.userId; // Use o userId definido pelo middleware
 
-    // Busca os dados do usuário com base no userId
     const userData = await User.findOne({ where: { id: userId } });
 
     if (!userData) {
